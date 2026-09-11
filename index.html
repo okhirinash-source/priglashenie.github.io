@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#f5f0e8">
+    <title>Симара & Рустам</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Глобальные адаптивные настройки */
+        * {
+            box-sizing: border-box;
+        }
+        
+        .event-details {
+            background: linear-gradient(135deg, rgba(245, 240, 232, 0.95), rgba(232, 224, 214, 0.95));
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            margin: 1.5rem auto;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid #d4c5b5;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+        .event-details::before {
+            content: '✦';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f5f0e8;
+            padding: 0 15px;
+            font-size: 24px;
+            color: #b8a89a;
+        }
+        .event-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(184, 168, 154, 0.2);
+        }
+        .event-item:last-child {
+            border-bottom: none;
+        }
+        .event-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #9a8a7a;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+        .event-date {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #2c2420;
+            display: block;
+        }
+        .event-time {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #5a4e42;
+            display: inline-block;
+            margin-right: 12px;
+        }
+        .event-place {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #5a4e42;
+            display: inline-block;
+        }
+        .event-divider {
+            display: block;
+            text-align: center;
+            font-size: 20px;
+            color: #d4c5b5;
+            margin: 0.2rem 0;
+            letter-spacing: 8px;
+        }
+        .family-name {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #2c2420;
+            text-align: center;
+            padding-top: 0.8rem;
+            margin-top: 0.8rem;
+            border-top: 2px solid #d4c5b5;
+            letter-spacing: 1px;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+        }
+        .family-name span {
+            color: #b8a89a;
+            font-weight: 300;
+        }
+
+        /* Секция с обращением — адаптивная и по центру */
+        .evening-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+            width: 100%;
+            padding: 2rem;
+            position: relative;
+        }
+        .evening-section .bg-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        .evening-section .veil-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(40, 30, 20, 0.5);
+            z-index: 1;
+        }
+        .center-message {
+            max-width: 580px;
+            width: 100%;
+            padding: 2.5rem 2rem 2rem;
+            background: rgba(255, 248, 240, 0.10);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 248, 240, 0.12);
+            text-align: center;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .center-message .label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 248, 240, 0.5);
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+        .center-message p {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.05rem;
+            color: rgba(255, 248, 240, 0.85);
+            line-height: 1.9;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+            margin: 0.6rem 0;
+        }
+        .center-message .quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: #f5f0e8;
+            display: block;
+            margin: 1rem 0 0.8rem;
+            letter-spacing: 2px;
+            line-height: 1.3;
+        }
+        .center-message .divider-line {
+            display: block;
+            color: rgba(255, 248, 240, 0.2);
+            font-size: 1.2rem;
+            letter-spacing: 10px;
+            margin: 0.8rem 0;
+        }
+        .center-message .final-line {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            margin-top: 0.4rem;
+        }
+
+        /* АДАПТАЦИЯ ПОД ТЕЛЕФОН */
+        @media (max-width: 600px) {
+            .event-details {
+                padding: 1.8rem 1.2rem;
+                width: 95%;
+            }
+            .event-date {
+                font-size: 1.2rem;
+            }
+            .event-time, .event-place {
+                font-size: 1rem;
+                display: block;
+                margin-right: 0;
+            }
+            .family-name {
+                font-size: 1.3rem;
+            }
+            
+            .evening-section {
+                min-height: 60vh;
+                padding: 1rem;
+            }
+            .center-message {
+                padding: 1.5rem 1.2rem 1.2rem;
+                border-radius: 20px;
+            }
+            .center-message p {
+                font-size: 0.95rem;
+                line-height: 1.7;
+            }
+            .center-message .quote {
+                font-size: 1.4rem;
+                margin: 0.6rem 0;
+            }
+            .center-message .label {
+                font-size: 10px;
+                letter-spacing: 3px;
+            }
+            .center-message .divider-line {
+                font-size: 1rem;
+                letter-spacing: 6px;
+            }
+            .center-message .final-line {
+                font-size: 0.9rem;
+            }
+            
+            .photos figure {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+            .photos figure img {
+                height: 180px;
+            }
+            .copy h2 {
+                font-size: 2rem !important;
+            }
+            .final-copy h2 {
+                font-size: 2.2rem !important;
+            }
+            .wish-card {
+                padding: 2rem 1.2rem !important;
+            }
+            .details p {
+                font-size: 1rem !important;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .center-message p {
+                font-size: 0.85rem;
+            }
+            .center-message .quote {
+                font-size: 1.2rem;
+            }
+            .event-date {
+                font-size: 1rem;
+            }
+            .family-name {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="music" id="music" aria-label="Включить музыку">♪ <span>музыка</span></button>
+    <main>
+        <section class="hero">
+            <div class="glow"></div>
+            <div class="flora left"></div>
+            <div class="flora right"></div>
+            <div class="stars" aria-hidden="true">✦　·　✧　·　✦　·　✧　·　✦</div>
+            <header>
+                <span>приглашение</span>
+                <h1>Для вас</h1>
+                <p>Симара &amp; Рустам</p>
+            </header>
+            <button class="envelope" id="open" aria-label="Открыть приглашение">
+                <img src="assets/navy-envelope.jpg" alt="Конверт с восковой печатью">
+            </button>
+            <small>нажмите, чтобы открыть</small>
+        </section>
+
+        <div id="story" hidden>
+            <section class="scene opening">
+                <img src="assets/golden-light.jpg" alt="Солнечный свет в высоких окнах">
+                <div class="veil"></div>
+                <div class="copy reveal">
+                    <span>один особенный вечер</span>
+                    <h2>Есть мгновения,<br><i>которые остаются<br>в сердце навсегда.</i></h2>
+                    <p>И этот вечер мы мечтаем разделить с вами.</p>
+                </div>
+            </section>
+
+            <section class="scene stairs">
+                <img src="assets/grand-staircase.jpg" alt="Парадная лестница дворца">
+                <div class="veil"></div>
+                <div class="copy right reveal">
+                    <span>следуйте за светом</span>
+                    <h2>Вас ждёт<br><i>наша история.</i></h2>
+                </div>
+            </section>
+
+            <section class="details reveal">
+                <span>с любовью</span>
+                <h2>Дорогие наши,</h2>
+                <p>Мы приглашаем вас быть рядом<br>в дни, которые станут началом<br>нашей новой главы.</p>
+                
+                <div class="event-details">
+                    <div class="event-item">
+                        <span class="event-label">✦ Вечер</span>
+                        <span class="event-date">19 сентября 2026</span>
+                        <span class="event-time">9:00</span>
+                        <span class="event-place">Тарбхонаи Шохон</span>
+                    </div>
+                    
+                    <div class="event-divider">· ✦ ·</div>
+                    
+                    <div class="event-item">
+                        <span class="event-label">✦ Свадьба</span>
+                        <span class="event-date">22 сентября 2026</span>
+                        <span class="event-time">18:00</span>
+                        <span class="event-place">Тарбхонаи Зарафшон</span>
+                    </div>
+                    
+                    <div class="family-name">
+                        Оилаи Тураевхо <span>&</span> Махмудовхо
+                    </div>
+                </div>
+                
+                <b>✦</b>
+            </section>
+
+            <!-- СЕКЦИЯ С ОБРАЩЕНИЕМ — АДАПТИВНАЯ -->
+            <section class="scene evening even-section" style="display:flex; align-items:center; justify-content:center; min-height:70vh; padding:2rem; position:relative;">
+                <img src="assets/reception.jpg" alt="Свадебный ужин в саду" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;">
+                <div style="position:absolute; inset:0; background:rgba(40,30,20,0.5); z-index:1;"></div>
+                
+                <div class="center-message" style="position:relative; z-index:2;">
+                    <span class="label">для вас</span>
+                    <p>В этот вечер не будет строгих правил.<br>Будет только свет, тепло и искренность.</p>
+                    <span class="quote">«Самое важное — это вы рядом»</span>
+                    <p>Мы хотим, чтобы каждый из вас чувствовал себя<br>не просто гостем, а частью нашей большой истории.</p>
+                    <span class="divider-line">— ✦ —</span>
+                    <p class="final-line">Приходите с открытым сердцем —<br>остальное сделает этот вечер.</p>
+                </div>
+            </section>
+            <!-- КОНЕЦ СЕКЦИИ С ОБРАЩЕНИЕМ -->
+
+            <section class="gallery">
+                <div class="reveal">
+                    <span>воспоминания</span>
+                    <h2>Наша маленькая<br><i>история любви</i></h2>
+                </div>
+                <div class="photos">
+                    <figure><img src="assets/couple.jpg" alt="Пара в саду"><figcaption>вместе — всегда</figcaption></figure>
+                    <figure><img src="assets/golden-light.jpg" alt="Золотой свет"><figcaption>свет нашего дня</figcaption></figure>
+                    <figure><img src="assets/reception.jpg" alt="Вечерняя площадка"><figcaption>вечер для близких</figcaption></figure>
+                </div>
+            </section>
+
+            <section class="wish">
+                <div class="wish-card reveal">
+                    <span>пожелание для вас</span>
+                    <h2>Пусть в этот вечер<br><i>всё будет о любви.</i></h2>
+                    <p>О тёплых объятиях, искренних словах, смехе до слёз и воспоминаниях, к которым захочется возвращаться снова и снова.</p>
+                    <b>Симара &amp; Рустам</b>
+                </div>
+            </section>
+
+            <section class="final">
+                <img src="assets/couple.jpg" alt="Симара и Рустам">
+                <div class="final-shade"></div>
+                <div class="final-copy reveal">
+                    <span>до скорой встречи</span>
+                    <h2>Будем ждать<br><i>вас.</i></h2>
+                    <button id="rsvp">Подтвердить присутствие</button>
+                    <small>Пожалуйста, сообщите нам до 10 сентября</small>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <dialog id="dialog">
+        <button class="close">×</button>
+        <span>Спасибо</span>
+        <h2>До встречи!</h2>
+        <p>Мы будем очень рады разделить этот день с вами.</p>
+        <a href="mailto:hello@example.com?subject=Подтверждение%20присутствия">Написать нам</a>
+    </dialog>
+
+    <script src="script.js"></script>
+</body>
+</html>
